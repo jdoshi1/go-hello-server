@@ -13,6 +13,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
+const (
+	ServerPort = "8080"
+)
+
 func handler(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query()
 	name := query.Get("name")
@@ -21,15 +25,20 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		name = "Guest"
 	}
 
+	log.Printf("Endpoint: %s\n", r.URL.Path)
 	log.Printf("Received request for %s\n", name)
-	w.Write([]byte(fmt.Sprintf("Hello, %s\n", name)))
+	w.Write([]byte(fmt.Sprintf("Hello, %s!\nCurrent time: %s\n", name, time.Now().String())))
 }
 
 func healthHandler(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Endpoint: %s\n", r.URL.Path)
+	w.Write([]byte(fmt.Sprintf("Server is healthy!")))
 	w.WriteHeader(http.StatusOK)
 }
 
 func readinessHandler(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Endpoint: %s\n", r.URL.Path)
+	w.Write([]byte(fmt.Sprintf("Server is ready!")))
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -43,7 +52,7 @@ func main() {
 
 	srv := &http.Server{
 		Handler: r,
-		Addr: ":8080",
+		Addr: fmt.Sprintf(":%s", ServerPort),
 		ReadTimeout: 10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}

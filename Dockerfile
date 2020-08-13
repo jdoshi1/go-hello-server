@@ -31,8 +31,11 @@ WORKDIR /root/
 # Copy the pre-built binary from build stage
 COPY --from=build /app/go-hello-server .
 
+# Copy build info in the image
+COPY --from=build /app/Dockerfile /etc/Dockerfile
+
 # Expose port 8080 to the outside world
 EXPOSE 8080
 
 # Command to run the executable
-CMD ["./go-hello-server" ]
+CMD [ "./go-hello-server" ]
