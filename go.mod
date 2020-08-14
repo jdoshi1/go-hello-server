@@ -1,4 +1,4 @@
-module github.com/jdoshi1/go-kubernetes
+module github.com/jdoshi1/go-hello-server
 
 go 1.14
 
