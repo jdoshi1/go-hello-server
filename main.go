@@ -32,14 +32,15 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func healthHandler(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Endpoint: %s\n", r.URL.Path)
-	w.Write([]byte(fmt.Sprintf("Server is healthy!")))
 	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(fmt.Sprintf("Server is healthy!\n")))
+
 }
 
 func readinessHandler(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Endpoint: %s\n", r.URL.Path)
-	w.Write([]byte(fmt.Sprintf("Server is ready!")))
 	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(fmt.Sprintf("Server is ready!\n")))
 }
 
 func main() {
